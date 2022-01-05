@@ -39,6 +39,8 @@ public class Bird {
 
     private final ScoreCounter counter; // 计分器
     private final ScoreCounter counterForShow; // 计分器
+    private final ScoreCounter counterForPipe;
+
     private final GameOverAnimation gameOverAnimation;
 
     public static int BIRD_WIDTH;
@@ -48,6 +50,7 @@ public class Bird {
     public Bird() {
         counter = ScoreCounter.getInstance(); // 计分器
         counterForShow = ScoreCounter.getInstanceForShow();
+        counterForPipe = ScoreCounter.getInstanceForPipe();
 
         gameOverAnimation = new GameOverAnimation();
 
@@ -183,6 +186,7 @@ public class Bird {
 
         counter.reset(); // 重置计分器
         counterForShow.reset();
+        counterForPipe.reset();
     }
 
     private boolean keyFlag = true; // 按键状态，true为已释放，使当按住按键时不会重复调用方法
