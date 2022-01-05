@@ -49,6 +49,9 @@ public class GameElementLayer {
     public static final int MAX_HEIGHT = ((Constant.FRAME_HEIGHT) >> 3) * 5;
 
     private void pipeBornLogic(Bird bird) {
+        if (ScoreCounter.getInstanceForPipe().getCurrentScore() == 0) {
+            return;
+        }
         if (bird.isDead()) {
             // 鸟死后不再添加水管
             return;
@@ -67,6 +70,7 @@ public class GameElementLayer {
 
             pipes.add(top);
             pipes.add(bottom);
+            ScoreCounter.getInstanceForPipe().scoreDown(bird);
         } else {
             // 判断最后一对水管是否完全进入游戏窗口，若进入则添加水管
             Pipe lastPipe = pipes.get(pipes.size() - 1); // 获得容器中最后一个水管
@@ -92,6 +96,7 @@ public class GameElementLayer {
                         else
                             addHoverPipe(lastPipe);
                     }
+                    ScoreCounter.getInstanceForPipe().scoreDown(bird);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

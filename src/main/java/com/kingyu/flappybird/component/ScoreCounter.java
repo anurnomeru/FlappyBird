@@ -19,6 +19,7 @@ public class ScoreCounter {
     private static class ScoreCounterHolder {
         private static final ScoreCounter scoreCounter = new ScoreCounter(0);
         private static final ScoreCounter scoreCounterForShow = new ScoreCounter(8);
+        private static final ScoreCounter scoreCounterForPipe = new ScoreCounter(8);
     }
 
     public static ScoreCounter getInstance() {
@@ -27,6 +28,10 @@ public class ScoreCounter {
 
     public static ScoreCounter getInstanceForShow() {
         return ScoreCounterHolder.scoreCounterForShow;
+    }
+
+    public static ScoreCounter getInstanceForPipe() {
+        return ScoreCounterHolder.scoreCounterForPipe;
     }
 
     private long initialScore = 0;
