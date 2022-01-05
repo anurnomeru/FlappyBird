@@ -49,6 +49,7 @@ public class Constant {
 	public static final String SCORE_IMG_PATH = "resources/img/score.png";
 	public static final String OVER_IMG_PATH = "resources/img/over.png";
 	public static final String AGAIN_IMG_PATH = "resources/img/again.png";
+	public static final String PASS_IMG_PATH = "resources/img/over.png";
 
 	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
 

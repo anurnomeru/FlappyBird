@@ -38,6 +38,7 @@ public class Bird {
     public static final int RECT_DESCALE = 2; // 补偿碰撞矩形宽高的参数
 
     private final ScoreCounter counter; // 计分器
+    private final ScoreCounter counterForShow; // 计分器
     private final GameOverAnimation gameOverAnimation;
 
     public static int BIRD_WIDTH;
@@ -46,6 +47,8 @@ public class Bird {
     // 在构造器中对资源初始化
     public Bird() {
         counter = ScoreCounter.getInstance(); // 计分器
+        counterForShow = ScoreCounter.getInstanceForShow();
+
         gameOverAnimation = new GameOverAnimation();
 
         // 读取小鸟图片资源
@@ -164,7 +167,7 @@ public class Bird {
     private void drawScore(Graphics g) {
         g.setColor(Color.white);
         g.setFont(Constant.CURRENT_SCORE_FONT);
-        String str = Long.toString(counter.getCurrentScore());
+        String str = Long.toString(counterForShow.getCurrentScore());
         int x = Constant.FRAME_WIDTH - GameUtil.getStringWidth(Constant.CURRENT_SCORE_FONT, str) >> 1;
         g.drawString(str, x, Constant.FRAME_HEIGHT / 10);
     }
@@ -179,6 +182,7 @@ public class Bird {
         birdCollisionRect.y = y - ImgHeight / 2 + RECT_DESCALE * 2; // 小鸟碰撞矩形坐标
 
         counter.reset(); // 重置计分器
+        counterForShow.reset();
     }
 
     private boolean keyFlag = true; // 按键状态，true为已释放，使当按住按键时不会重复调用方法

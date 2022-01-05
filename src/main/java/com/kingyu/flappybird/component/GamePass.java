@@ -6,13 +6,13 @@ import com.kingyu.flappybird.util.GameUtil;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GameSuccess {
+public class GamePass {
 
     private final BufferedImage passImg; // 计分牌
     private final BufferedImage overImg; // 结束标志
     private final BufferedImage againImg; // 继续标志
 
-    public GameSuccess(){
+    public GamePass(){
 
         passImg = GameUtil.loadBufferedImage(Constant.PASS_IMG_PATH);
         overImg = GameUtil.loadBufferedImage(Constant.OVER_IMG_PATH);

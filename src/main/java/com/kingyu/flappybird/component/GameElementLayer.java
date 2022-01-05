@@ -76,6 +76,7 @@ public class GameElementLayer {
                 if (pipes.size() >= PipePool.FULL_PIPE - 2
                         && currentDistance <= SCORE_DISTANCE + Pipe.PIPE_WIDTH * 3 / 2) {
                     ScoreCounter.getInstance().score(bird);
+                    ScoreCounter.getInstanceForShow().scoreDown(bird);
                 }
                 try {
                     int currentScore = (int) ScoreCounter.getInstance().getCurrentScore() + 1; // 获取当前分数
