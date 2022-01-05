@@ -29,6 +29,13 @@ public class GameElementLayer {
             if (pipe.isVisible()) {
                 pipe.draw(g, bird);
             } else {
+
+                ScoreCounter.getInstance().score(bird);
+
+                if (ScoreCounter.getInstance().getCurrentScore() % 2 == 0) {
+                    ScoreCounter.getInstanceForShow().scoreDown(bird);
+                }
+
                 Pipe remove = pipes.remove(i);
                 PipePool.giveBack(remove);
                 i--;
@@ -44,7 +51,7 @@ public class GameElementLayer {
      * 每对水管的间隔距离为屏幕高度的1/4； 水管的高度的取值范围为窗口的[1/8~5/8]
      */
     public static final int VERTICAL_INTERVAL = Constant.FRAME_HEIGHT / 5;
-    public static final int HORIZONTAL_INTERVAL = (Constant.FRAME_HEIGHT >> 2) * 4;
+    public static final int HORIZONTAL_INTERVAL = (Constant.FRAME_HEIGHT >> 2) * 5;
     public static final int MIN_HEIGHT = Constant.FRAME_HEIGHT >> 3;
     public static final int MAX_HEIGHT = ((Constant.FRAME_HEIGHT) >> 3) * 5;
 
@@ -74,34 +81,13 @@ public class GameElementLayer {
         } else {
             // 判断最后一对水管是否完全进入游戏窗口，若进入则添加水管
             Pipe lastPipe = pipes.get(pipes.size() - 1); // 获得容器中最后一个水管
-            int currentDistance = lastPipe.getX() - bird.getBirdX() + Bird.BIRD_WIDTH / 2; // 小鸟和最后一根水管的距离
-            final int SCORE_DISTANCE = Pipe.PIPE_WIDTH * 2 + HORIZONTAL_INTERVAL; // 小于得分距离则得分
-            if (lastPipe.isInFrame()) {
-                if (pipes.size() >= PipePool.FULL_PIPE - 2
-                        && currentDistance <= SCORE_DISTANCE + Pipe.PIPE_WIDTH * 3 / 2) {
-                    ScoreCounter.getInstance().score(bird);
-                    ScoreCounter.getInstanceForShow().scoreDown(bird);
-                }
-                try {
-                    int currentScore = (int) ScoreCounter.getInstance().getCurrentScore() + 1; // 获取当前分数
-                    // 移动水管刷新的概率随当前分数递增，当得分大于19后全部刷新移动水管
-                    if (GameUtil.isInProbability(currentScore, 20)) {
-                        if (GameUtil.isInProbability(1, 4)) // 生成移动水管和移动悬浮水管的概率
-                            addMovingHoverPipe(lastPipe);
-                        else
-                            addMovingNormalPipe(lastPipe);
-                    } else {
-                        if (GameUtil.isInProbability(1, 2)) // 生成静止普通水管和静止悬浮水管的概率
-                            addNormalPipe(lastPipe);
-                        else
-                            addHoverPipe(lastPipe);
-                    }
-                    ScoreCounter.getInstanceForPipe().scoreDown(bird);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
+            try {
+                addMovingNormalPipe(lastPipe);
+                ScoreCounter.getInstanceForPipe().scoreDown(bird);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -190,7 +176,7 @@ public class GameElementLayer {
      * @param lastPipe 传入最后一根水管以获取x坐标
      */
     private void addMovingNormalPipe(Pipe lastPipe) {
-        int topHeight = GameUtil.getRandomNumber(MIN_HEIGHT, MAX_HEIGHT + 1); // 随机生成水管高度
+        int topHeight = GameUtil.getRandomNumber(MIN_HEIGHT, MAX_HEIGHT + 5); // 随机生成水管高度
         int x = lastPipe.getX() + HORIZONTAL_INTERVAL; // 新水管的x坐标 = 最后一对水管的x坐标 + 水管的间隔
 
         Pipe top = PipePool.get("MovingPipe");

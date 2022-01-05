@@ -11,11 +11,11 @@ import java.awt.Font;
 
 public class Constant {
 	// 窗口尺寸
-	public static final int FRAME_WIDTH = 1080;
+	public static final int FRAME_WIDTH = 1280;
 	public static final int FRAME_HEIGHT = 720;
 
 	// 游戏标题
-	public static final String GAME_TITLE = "Flappy Bird written by Kingyu";
+	public static final String GAME_TITLE = "Flappy Monkey";
 
 	// 窗口位置
 	public static final int FRAME_X = 600;
@@ -49,7 +49,7 @@ public class Constant {
 	public static final String SCORE_IMG_PATH = "resources/img/score.png";
 	public static final String OVER_IMG_PATH = "resources/img/over.png";
 	public static final String AGAIN_IMG_PATH = "resources/img/again.png";
-	public static final String PASS_IMG_PATH = "resources/img/over.png";
+	public static final String PASS_IMG_PATH = "resources/img/pass.png";
 
 	public static final String SCORE_FILE_PATH = "resources/score"; // 分数文件路径
 
