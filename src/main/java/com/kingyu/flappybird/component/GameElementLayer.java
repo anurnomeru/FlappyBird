@@ -44,7 +44,7 @@ public class GameElementLayer {
      * 每对水管的间隔距离为屏幕高度的1/4； 水管的高度的取值范围为窗口的[1/8~5/8]
      */
     public static final int VERTICAL_INTERVAL = Constant.FRAME_HEIGHT / 5;
-    public static final int HORIZONTAL_INTERVAL = (Constant.FRAME_HEIGHT >> 2)*2;
+    public static final int HORIZONTAL_INTERVAL = (Constant.FRAME_HEIGHT >> 2) * 4;
     public static final int MIN_HEIGHT = Constant.FRAME_HEIGHT >> 3;
     public static final int MAX_HEIGHT = ((Constant.FRAME_HEIGHT) >> 3) * 5;
 

@@ -11,8 +11,8 @@ import java.awt.Font;
 
 public class Constant {
 	// 窗口尺寸
-	public static final int FRAME_WIDTH = 420;
-	public static final int FRAME_HEIGHT = 640;
+	public static final int FRAME_WIDTH = 1080;
+	public static final int FRAME_HEIGHT = 720;
 
 	// 游戏标题
 	public static final String GAME_TITLE = "Flappy Bird written by Kingyu";
