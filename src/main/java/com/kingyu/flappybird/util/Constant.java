@@ -11,10 +11,10 @@ import java.awt.Font;
 
 public class Constant {
 
-	public static final int PASS_COUNT = 8;
+	public static final int PASS_COUNT = 1;
 
 	// 窗口尺寸
-	public static final int FRAME_WIDTH = 1280;
+	public static final int FRAME_WIDTH = 960;
 	public static final int FRAME_HEIGHT = 720;
 
 	// 游戏标题

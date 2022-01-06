@@ -20,13 +20,12 @@ public class HappyEnding {
     private final BufferedImage img;
 
 
-
     // 构造器
     public HappyEnding() {
         super();
         BufferedImage bufferedImage = GameUtil.loadBufferedImage(Constant.HAPPY_END_IMG_PATH);
         this.img = bufferedImage;
-        this.speed = Constant.GAME_SPEED ; //云朵的速度
+        this.speed = Constant.GAME_SPEED; //云朵的速度
         this.x = Constant.FRAME_WIDTH;
         this.y = Constant.FRAME_HEIGHT / 2;
     }
@@ -45,5 +44,8 @@ public class HappyEnding {
         return x < -1 * img.getWidth();
     }
 
-
+    public boolean intersects(Rectangle r) {
+        Rectangle rr = new Rectangle(this.x, this.y, this.img.getWidth(), this.img.getHeight());
+        return rr.intersects(r);
+    }
 }

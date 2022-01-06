@@ -4,11 +4,11 @@ import com.kingyu.flappybird.component.GameElementLayer;
 import com.kingyu.flappybird.component.Bird;
 import com.kingyu.flappybird.component.GameBackground;
 import com.kingyu.flappybird.component.GameForeground;
+import com.kingyu.flappybird.component.GamePass;
 import com.kingyu.flappybird.component.HappyEnding;
 import com.kingyu.flappybird.component.ScoreCounter;
 import com.kingyu.flappybird.component.WelcomeAnimation;
-import com.kingyu.flappybird.util.Constant;
-import com.kingyu.flappybird.util.GameUtil;
+import com.kingyu.flappybird.util.MusicUtil;
 
 import static com.kingyu.flappybird.util.Constant.FRAME_HEIGHT;
 import static com.kingyu.flappybird.util.Constant.FRAME_WIDTH;
@@ -35,11 +35,13 @@ public class Game extends Frame {
     private static int gameState; // 游戏状态
     public static final int GAME_READY = 0; // 游戏未开始
     public static final int GAME_START = 1; // 游戏开始
-    public static final int STATE_OVER = 2; // 游戏结束
+    public static final int STATE_WIN = 2; // 游戏 win
+    public static final int STATE_OVER = 3; // 游戏结束
 
     private GameBackground background; // 游戏背景对象
     private GameForeground foreground; // 游戏前景对象
     private HappyEnding happyEnding; // 游戏结束对象
+    private GamePass gamePass; // 游戏win// 对象
     private Bird bird; // 小鸟对象
     private GameElementLayer gameElement; // 游戏元素对象
     private WelcomeAnimation welcomeAnimation; // 游戏未开始时对象
@@ -94,6 +96,12 @@ public class Game extends Frame {
                         resetGame();
                     }
                     break;
+                case STATE_WIN:
+                    if (keycode == KeyEvent.VK_SPACE) {
+                        //游戏结束时按下空格，重新开始游戏
+                        setGameState(STATE_OVER);
+                    }
+                    break;
             }
         }
 
@@ -128,7 +136,7 @@ public class Game extends Frame {
         setGameState(GAME_READY);
 
         // 启动用于刷新窗口的线程
-        new Thread(() ->{
+        new Thread(() -> {
             while (true) {
                 repaint(); // 通过调用repaint(),让JVM调用update()
                 try {
@@ -155,8 +163,17 @@ public class Game extends Frame {
         // 使用图片画笔将需要绘制的内容绘制到图片
         background.draw(bufG, bird); // 背景层
         foreground.draw(bufG, bird); // 前景层
-        if(ScoreCounter.getInstanceForShow().getCurrentScore() <= 0){
+        if (ScoreCounter.getInstanceForShow().getCurrentScore() <= 0) {
             happyEnding.draw(bufG, bird);
+        }
+        if (ScoreCounter.getInstanceForShow().isWin()) {
+            bird.gamePass.draw(g, bird);
+        }
+        if (happyEnding.intersects(bird.getBirdCollisionRect())) {
+            bird.dieWin();
+            MusicUtil.playCrash();
+            bird.gamePass.draw(g, bird);
+//            return;
         }
         if (gameState == GAME_READY) { // 游戏未开始
             welcomeAnimation.draw(bufG);

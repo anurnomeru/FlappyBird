@@ -97,4 +97,8 @@ public class ScoreCounter {
     public void reset() {
         score = initialScore;
     }
+
+    public boolean isWin() {
+        return score > 1 && score == initialScore;
+    }
 }

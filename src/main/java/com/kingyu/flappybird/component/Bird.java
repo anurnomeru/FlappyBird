@@ -33,6 +33,7 @@ public class Bird {
     public static final int BIRD_FALL = 2;
     public static final int BIRD_DEAD_FALL = 3;
     public static final int BIRD_DEAD = 4;
+    public static final int BIRD_WIN = 5;
 
     private final Rectangle birdCollisionRect; // 碰撞矩形
     public static final int RECT_DESCALE = 2; // 补偿碰撞矩形宽高的参数
@@ -42,6 +43,8 @@ public class Bird {
     private final ScoreCounter counterForPipe;
 
     private final GameOverAnimation gameOverAnimation;
+
+    public final GamePass gamePass;
 
     public static int BIRD_WIDTH;
     public static int BIRD_HEIGHT;
@@ -53,6 +56,7 @@ public class Bird {
         counterForPipe = ScoreCounter.getInstanceForPipe();
 
         gameOverAnimation = new GameOverAnimation();
+        gamePass = new GamePass();
 
         // 读取小鸟图片资源
         birdImages = new BufferedImage[STATE_COUNT][IMG_COUNT];
@@ -90,6 +94,8 @@ public class Bird {
 
         if (state == BIRD_DEAD)
             gameOverAnimation.draw(g, this);
+        else if (state == BIRD_WIN)
+            gamePass.draw(g, this);
         else if (state != BIRD_DEAD_FALL)
             drawScore(g);
         // 绘制碰撞矩形
@@ -132,6 +138,13 @@ public class Bird {
         Game.setGameState(Game.STATE_OVER);
     }
 
+    public void dieWin() {
+        counter.saveScore();
+        state = BIRD_WIN;
+        velocity = 0;
+        Game.setGameState(Game.STATE_WIN);
+    }
+
     // 小鸟振翅
     public void birdFlap() {
         if (keyIsReleased()) {
@@ -163,7 +176,7 @@ public class Bird {
 
     // 判断小鸟是否死亡
     public boolean isDead() {
-        return state == BIRD_DEAD_FALL || state == BIRD_DEAD;
+        return state == BIRD_DEAD_FALL || state == BIRD_DEAD || state == BIRD_WIN;
     }
 
     // 绘制实时分数
