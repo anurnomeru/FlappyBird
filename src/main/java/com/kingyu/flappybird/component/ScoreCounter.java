@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 
 import com.kingyu.flappybird.util.Constant;
 import com.kingyu.flappybird.util.MusicUtil;
+import com.sun.tools.internal.jxc.ap.Const;
 
 /**
  * 游戏计时器, 使用静态内部类实现了单例模式
@@ -18,8 +19,8 @@ public class ScoreCounter {
 
     private static class ScoreCounterHolder {
         private static final ScoreCounter scoreCounter = new ScoreCounter(0);
-        private static final ScoreCounter scoreCounterForShow = new ScoreCounter(1);
-        private static final ScoreCounter scoreCounterForPipe = new ScoreCounter(1);
+        private static final ScoreCounter scoreCounterForShow = new ScoreCounter(Constant.PASS_COUNT);
+        private static final ScoreCounter scoreCounterForPipe = new ScoreCounter(Constant.PASS_COUNT);
     }
 
     public static ScoreCounter getInstance() {

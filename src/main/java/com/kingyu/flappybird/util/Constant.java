@@ -10,6 +10,9 @@ import java.awt.Font;
  */
 
 public class Constant {
+
+	public static final int PASS_COUNT = 8;
+
 	// 窗口尺寸
 	public static final int FRAME_WIDTH = 1280;
 	public static final int FRAME_HEIGHT = 720;
