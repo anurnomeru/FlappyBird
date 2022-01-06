@@ -40,6 +40,8 @@ public class Constant {
 	// 云朵图片
 	public static final String[] CLOUDS_IMG_PATH = { "resources/img/cloud_0.png", "resources/img/cloud_1.png" };
 
+	public static final String HAPPY_END_IMG_PATH = "resources/img/happyEnd.png";
+
 	// 水管图片
 	public static final String[] PIPE_IMG_PATH = { "resources/img/pipe.png", "resources/img/pipe_top.png",
 			"resources/img/pipe_bottom.png" };

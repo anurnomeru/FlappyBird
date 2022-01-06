@@ -4,7 +4,11 @@ import com.kingyu.flappybird.component.GameElementLayer;
 import com.kingyu.flappybird.component.Bird;
 import com.kingyu.flappybird.component.GameBackground;
 import com.kingyu.flappybird.component.GameForeground;
+import com.kingyu.flappybird.component.HappyEnding;
+import com.kingyu.flappybird.component.ScoreCounter;
 import com.kingyu.flappybird.component.WelcomeAnimation;
+import com.kingyu.flappybird.util.Constant;
+import com.kingyu.flappybird.util.GameUtil;
 
 import static com.kingyu.flappybird.util.Constant.FRAME_HEIGHT;
 import static com.kingyu.flappybird.util.Constant.FRAME_WIDTH;
@@ -35,6 +39,7 @@ public class Game extends Frame {
 
     private GameBackground background; // 游戏背景对象
     private GameForeground foreground; // 游戏前景对象
+    private HappyEnding happyEnding; // 游戏结束对象
     private Bird bird; // 小鸟对象
     private GameElementLayer gameElement; // 游戏元素对象
     private WelcomeAnimation welcomeAnimation; // 游戏未开始时对象
@@ -96,6 +101,7 @@ public class Game extends Frame {
         private void resetGame() {
             setGameState(GAME_READY);
             gameElement.reset();
+            happyEnding = new HappyEnding();
             bird.reset();
         }
 
@@ -117,6 +123,7 @@ public class Game extends Frame {
         gameElement = new GameElementLayer();
         foreground = new GameForeground();
         welcomeAnimation = new WelcomeAnimation();
+        happyEnding = new HappyEnding();
         bird = new Bird();
         setGameState(GAME_READY);
 
@@ -148,6 +155,9 @@ public class Game extends Frame {
         // 使用图片画笔将需要绘制的内容绘制到图片
         background.draw(bufG, bird); // 背景层
         foreground.draw(bufG, bird); // 前景层
+        if(ScoreCounter.getInstanceForShow().getCurrentScore() <= 0){
+            happyEnding.draw(bufG, bird);
+        }
         if (gameState == GAME_READY) { // 游戏未开始
             welcomeAnimation.draw(bufG);
         } else { // 游戏结束
